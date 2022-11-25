@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Track</string>
+    <string name="welcome_text">Let\'s spy</string>
+    <string name="from_package">com.srbh.wander</string>
+    <string name="database_table"><![CDATA[DB: note_db -> Table: note]]></string>
+    <string name="notes_heading_label">Notes</string>
+    <string name="topic_label">Topic</string>
+    <string name="description_label">Description</string>
+    <string name="from_email">user@domain.com</string>
+    <string name="update_a_note">Update a note</string>
+</resources>
