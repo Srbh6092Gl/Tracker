@@ -8,6 +8,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.srbh.track.R
 import com.srbh.track.databinding.ActivityUpdateBinding
+import com.srbh.track.service.UpdateContentProviderService
 
 class UpdateActivity : AppCompatActivity() {
 
@@ -15,7 +16,6 @@ class UpdateActivity : AppCompatActivity() {
 
     val PROVIDER_NAME = "com.srbh.note.provider"
     val URL = "content://$PROVIDER_NAME/note"
-    val CONTENT_URI = Uri.parse(URL)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,22 +42,15 @@ class UpdateActivity : AppCompatActivity() {
 
     }
 
-    private fun updateNote(id: Long, newTopic: String, newDescription: String) {
+    private fun updateNote(id: Long, newTopic: String, newDescription: String) =
 
-        var contentValues=ContentValues()
-        contentValues.put("topic",newTopic)
-        contentValues.put("description",newDescription)
-
-        val selectionArgs = arrayOf(id.toString())
-
-        contentResolver.update(
-            CONTENT_URI,
-            contentValues,
-            "id =? ",
-            selectionArgs
-        )
-
-    }
+        Intent(this, UpdateContentProviderService::class.java).also {
+            it.putExtra("id",id)
+            it.putExtra("topic",newTopic)
+            it.putExtra("description",newDescription)
+            it.putExtra("url",URL)
+            startService(it)
+        }
 
     private fun goBackToMainActivity() = Intent(this, MainActivity::class.java).also{
         it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
